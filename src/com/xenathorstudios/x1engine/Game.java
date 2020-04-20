@@ -16,11 +16,13 @@ public class Game implements Runnable {
     }
 
     public void init() {
+        //Anything that needs to be initialized prior to the game starting goes in here
         running = true;
     }
 
     public void update() {
-
+        //Processes UI
+        //Updates game entities/objects one tick
     }
 
     public void render() {
