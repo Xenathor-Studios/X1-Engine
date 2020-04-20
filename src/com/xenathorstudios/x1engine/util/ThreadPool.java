@@ -11,7 +11,6 @@ import java.util.List;
 public class ThreadPool extends ThreadGroup {
 
     public boolean isThreadAlive;
-    private static SerialGenerator poolID = new SerialGenerator(0);
     private int id;
     private List<Runnable> taskQueue;
 
@@ -20,8 +19,7 @@ public class ThreadPool extends ThreadGroup {
      * @param numThreads the number of threads in the pool
      */
     public ThreadPool(int numThreads) {
-        super("ThreadPool-" + poolID.next());
-        this.id = poolID.getCurThreadBaseID();
+        super("ThreadPool");
         setDaemon(true);
         taskQueue = new LinkedList<Runnable>();
         isThreadAlive = true;
@@ -35,7 +33,7 @@ public class ThreadPool extends ThreadGroup {
      * @param task the task to run
      */
     public synchronized void runTask(Runnable task) {
-        if(!isThreadAlive) { throw new IllegalStateException("ThreadPool-" + id + " is dead"); }
+        if(!isThreadAlive) { throw new IllegalStateException("ThreadPool is dead"); }
         if(task != null) {
             taskQueue.add(task);
             notify();
@@ -71,6 +69,11 @@ public class ThreadPool extends ThreadGroup {
         }
     }
 
+    /**
+     * Gets the task at the top of the task queue
+     * @return the first task
+     * @throws InterruptedException
+     */
     protected synchronized Runnable getTask() throws InterruptedException {
         while(taskQueue.size() == 0) {
             if(!isThreadAlive) { return null; }

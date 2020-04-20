@@ -7,11 +7,9 @@ package com.xenathorstudios.x1engine.util;
  */
 public class PooledThread extends Thread {
 
-    private static SerialGenerator threadID = new SerialGenerator(0);
     private ThreadPool pool;
 
     public PooledThread(ThreadPool pool) {
-        super(pool, "PooledThread-" + threadID.next());
         this.pool = pool;
     }
 

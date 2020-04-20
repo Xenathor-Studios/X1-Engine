@@ -8,11 +8,16 @@ import com.xenathorstudios.x1engine.util.ThreadPool;
  * Launches the game by running all game threads
  */
 public class Launcher {
-    public static void main(String[] args) {
 
+    private static final String TITLE = ""; //Change TITLE to the title of the game
+    private static final int MAX_THREADS = 1; //Size of Thread Pool
+
+    public static void main(String[] args) {
+        Game game = new Game(TITLE);
         //Add thread instances here
-        ThreadPool pool = new ThreadPool(0); //Change to number of threads
-        //Run thread instances in pool tasks here
+        ThreadPool pool = new ThreadPool(MAX_THREADS);
+        pool.runTask(game);
+        //Run threads here
         pool.join();
     }
 }
