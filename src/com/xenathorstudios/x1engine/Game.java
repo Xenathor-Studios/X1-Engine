@@ -1,5 +1,7 @@
 package com.xenathorstudios.x1engine;
 
+import javax.swing.*;
+
 /**
  * Project: X1 Engine
  * @author Maxwell "M_Dragon" Battles
@@ -26,7 +28,7 @@ public class Game implements Runnable {
     }
 
     public void render() {
-
+        //Renders, obviously
     }
 
     //Game loop to be Event-Based with fixed update time step with synchronization
@@ -40,7 +42,16 @@ public class Game implements Runnable {
             render();
             long currentTime = System.nanoTime();
             try {
-                Thread.sleep((long) (MS_PER_FRAME - (currentTime - lastTime)/1000000));
+                if((long) (MS_PER_FRAME - (currentTime - lastTime)/1000000) >= 0) {
+                    Thread.sleep((long) (MS_PER_FRAME - (currentTime - lastTime) / 1000000));
+                } else {
+                    JFrame exitFrame = new JFrame();
+                    exitFrame.pack();
+                    exitFrame.setLocationRelativeTo(null);
+                    exitFrame.setVisible(true);
+                    JOptionPane.showMessageDialog(exitFrame, "Tick took too long. Tick optimization required.", "Fatal Error", JOptionPane.ERROR_MESSAGE);
+                    System.exit(1);
+                }
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
