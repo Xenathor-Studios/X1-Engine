@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class ThreadPool extends ThreadGroup {
 
-    public boolean isThreadAlive;
+    private boolean isThreadAlive;
     private int id;
     private List<Runnable> taskQueue;
 
@@ -24,7 +24,7 @@ public class ThreadPool extends ThreadGroup {
         taskQueue = new LinkedList<Runnable>();
         isThreadAlive = true;
         for(int i = 0; i < numThreads; i++) {
-            new PooledThread(this).start();
+            new ThreadPoolHandler(this).start();
         }
     }
 
@@ -74,11 +74,38 @@ public class ThreadPool extends ThreadGroup {
      * @return the first task
      * @throws InterruptedException
      */
-    protected synchronized Runnable getTask() throws InterruptedException {
+    synchronized Runnable getTask() throws InterruptedException {
         while(taskQueue.size() == 0) {
             if(!isThreadAlive) { return null; }
             wait();
         }
         return taskQueue.remove(0);
+    }
+
+    public class ThreadPoolHandler extends Thread {
+
+        private ThreadPool pool;
+
+        ThreadPoolHandler(ThreadPool pool) {
+            this.pool = pool;
+        }
+
+        @Override
+        public void run() {
+            while(!isInterrupted()) {
+                Runnable task = null;
+                try {
+                    task = pool.getTask();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                if(task == null) { return; }
+                try {
+                    task.run();
+                } catch(Throwable t) {
+                    pool.uncaughtException(this, t);
+                }
+            }
+        }
     }
 }
