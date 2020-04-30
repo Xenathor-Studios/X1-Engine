@@ -1,8 +1,6 @@
 package com.xenathorstudios.x1engine.util;
 
-import javax.swing.*;
 import java.io.*;
-import java.util.Scanner;
 
 /**
  * Project: X1 Engine
@@ -10,54 +8,57 @@ import java.util.Scanner;
  * Writes necessary game data to a save file
  */
 public class SaveGame {
-    private final String SAVE_PATH = "./res/save/save.sve";
-    private final String SAVE_CFG = "./res/save/save.cfg";
-    private boolean checkPoint;
-    private final int IS_CHECK_POINT = 13;
 
-    private boolean isCheckPoint() throws IOException {
-        if(Integer.parseInt(readLine(IS_CHECK_POINT)) == 1) { checkPoint = true; }
-        else if(Integer.parseInt(readLine(IS_CHECK_POINT)) == 0) { checkPoint = false; }
-        else {
-            JFrame exitFrame = new JFrame();
-            exitFrame.pack();
-            exitFrame.setLocationRelativeTo(null);
-            exitFrame.setVisible(true);
-            JOptionPane.showMessageDialog(exitFrame, "Check Point boolean has an improper value. Ensure that IS_CHECK_POINT in SaveGame.java " +
-                    "points to the correct line number in save.cfg!", "Fatal Error", JOptionPane.ERROR_MESSAGE);
-            System.exit(1);
+    private int cur_line = 0;
+
+    /**
+     * Saves the specified data to a save file
+     * @param filepath the save file to use
+     */
+    public void saveGame(String filepath) {
+        /*
+        Here's an example of saving data and writing comments to a save file:
+
+        comment(filepath, "This is a comment"); //Writes a comment to the save file
+        write(filepath, some_global_data_variable); //Writes data entry #1
+        comment(filepath, "This is another comment"); //Writes another comment to the save file
+        write(filepath, some_other_global_data_variable); //Writes data entry #2
+
+        Let's say we need to save an array of items the player possesses.
+        for(int i = 0; i < item_count; i++) {
+            write(filepath, items[i]);
         }
-        return checkPoint;
+        And so on until everything that needs to be saved is saved
+        */
     }
 
     /**
-     * Reads the save file and returns the text within it
-     * @return text the text of the file
-     * @throws IOException
+     * Loads previous save data into present game
+     * @param filepath the save file to use
      */
-    public String read() throws IOException {
-        File saveFile = new File(SAVE_PATH);
-        FileReader reader = new FileReader(saveFile);
-        BufferedReader bReader = new BufferedReader(reader);
-
-        String text = "";
-        String line = bReader.readLine();
-
-        while (line != null) {
-            text += line;
-            line = bReader.readLine();
+    public void loadGame(String filepath) {
+        try {
+            /*
+            The format for loading should be as follows:
+            global_data_1 = getNextDataLine(filepath);
+            global_data_2 = getNextDataLine(filepath);
+            And so on until all the data is initialized
+             */
+            int data = Integer.parseInt(getNextDataLine(filepath)); //Placeholder so that the try/catch block can exist peacefully. DON'T FORGET TO REMOVE THIS LINE!
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
-        return text;
     }
 
     /**
      * Reads a specific line of a file
+     * @param filepath the save file to read
+     * @param lineNumber the number of the line to read
      * @return text the text of the line specified
      * @throws IOException
      */
-    public String readLine(int lineNumber) throws IOException {
-        File saveFile = new File(SAVE_PATH);
+    private String readLine(String filepath, int lineNumber) throws IOException {
+        File saveFile = new File(filepath);
         FileReader reader = new FileReader(saveFile);
         BufferedReader bReader = new BufferedReader(reader);
 
@@ -70,25 +71,65 @@ public class SaveGame {
 
     /**
      * Counts the number of lines of a file
-     * @return lineCount the number of lines
+     * @param filepath the save file to count
+     * @return the number of lines
      * @throws IOException
      */
-    public int lineCounter() throws IOException {
-        File saveFile = new File(SAVE_PATH);
+    private int lineCounter(String filepath) throws IOException {
+        File saveFile = new File(filepath);
         LineNumberReader lnr = new LineNumberReader(new FileReader(saveFile));
         while (lnr.skip(Long.MAX_VALUE) > 0);
-        int lineCount = lnr.getLineNumber();
 
-        return lineCount;
+        return lnr.getLineNumber() + 1;
+    }
+
+    /**
+     * Gets the next uncommented line from the save file. Note that this returns a String!
+     * @param filepath the save file to read
+     * @return the next line of data
+     * @throws IOException
+     */
+    private String getNextDataLine(String filepath) throws IOException {
+        String line = readLine(filepath, cur_line);
+        try {
+            if(line.charAt(0) == '#') {
+                if(cur_line > lineCounter(filepath)) {
+                    cur_line = 0;
+                    return "";
+                }
+                cur_line++;
+                getNextDataLine(filepath);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        cur_line++;
+        return line;
     }
 
     /**
      * Writes to the next open line of a file
+     * @param filepath the save file to write to
+     * @param toWrite the info to write
      */
-    public void write(String toWrite) {
-        File saveFile = new File(SAVE_PATH);
+    private void write(String filepath, String toWrite) {
+        File saveFile = new File(filepath);
         try (BufferedWriter bWriter = new BufferedWriter(new FileWriter(saveFile, true))) {
             bWriter.write(toWrite + "\n");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Writes a comment to the next open line of a file
+     * @param filepath the save file to write to
+     * @param message the comment to write
+     */
+    private void comment(String filepath, String message) {
+        File saveFile = new File(filepath);
+        try (BufferedWriter bWriter = new BufferedWriter(new FileWriter(saveFile, true))) {
+            bWriter.write("# " + message + "\n");
         } catch (IOException e) {
             e.printStackTrace();
         }

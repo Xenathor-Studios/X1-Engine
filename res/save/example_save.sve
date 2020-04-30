@@ -1,0 +1,19 @@
+# This is an example save file, where '#' is used to denote a comment.
+# Comments can be used to describe save data
+# --------------------------------------------------------------------
+# Current level
+16
+# Current checkpoint
+2
+# Score
+31932
+# Player health
+120
+# Lives left
+1
+# Weapons
+m16
+m1_garand
+# Ammo
+30
+15
