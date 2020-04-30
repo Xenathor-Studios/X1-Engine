@@ -9,18 +9,17 @@ import javax.swing.*;
  */
 public class Game implements Runnable {
 
-    private final String TITLE;
-    private final double MS_PER_FRAME = 16.666666; //60FPS
-    private boolean running = false;
-
     /*
      * Declare save files like the following, and format them similar to example_save.sve
      * Save files should have extension '.sve'
      * This comment and following variable may move location.
      */
     private final String EXAMPLE_SAVE = "./res/save/example_save.sve";
+    private final String TITLE;
+    private final double MS_PER_FRAME = 16.666666; //60FPS
+    private boolean running = false;
 
-    public Game (String title) {
+    public Game(String title) {
         this.TITLE = title;
     }
 
