@@ -5,7 +5,7 @@ import java.io.*;
 /**
  * Project: X1 Engine
  * @author Maxwell "M_Dragon" Battles
- * Writes necessary game data to a save file
+ * Writes necessary game data to a save file and loads the data into the game
  */
 public class SaveGame {
 
