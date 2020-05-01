@@ -30,6 +30,7 @@ public class Game implements Runnable {
 
     public void update() {
         //Processes UI
+        //Does physics sim
         //Updates game entities/objects one tick
     }
 

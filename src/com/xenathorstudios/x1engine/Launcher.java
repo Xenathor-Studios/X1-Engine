@@ -28,7 +28,7 @@ public class Launcher {
 
         Game game = new Game(title); //Primary thread, takes care of game objects, and gameplay
         //Add thread instances here
-        //Planned thread instances: Audio Player, Rendering
+        //Planned thread instances: Media Player, Render, Event Handler
         ThreadPool pool = new ThreadPool(max_threads);
         pool.runTask(game);
         //Run threads here
