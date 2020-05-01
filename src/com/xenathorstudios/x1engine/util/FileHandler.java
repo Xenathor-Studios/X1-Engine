@@ -5,17 +5,17 @@ import java.io.*;
 /**
  * Project: X1 Engine
  * @author Maxwell "M_Dragon" Battles
- * 
+ * Handles all reading/writing to an external file
  */
 public class FileHandler {
 
-    private int cur_line = 0;
+    private int cur_line;
 
     /**
      * Empty Constructor
      */
-    FileHandler() {
-
+    public FileHandler() {
+        this.cur_line = 0;
     }
 
     /**
@@ -58,32 +58,35 @@ public class FileHandler {
      * @throws IOException
      */
     public String getNextDataLine(String filepath) throws IOException {
-        String line = readLine(filepath, cur_line);
-        try {
-            if(line.charAt(0) == '#') {
-                if(cur_line > lineCounter(filepath)) {
-                    cur_line = 0;
-                    return "";
-                }
-                cur_line++;
-                getNextDataLine(filepath);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+        String line = "";
+
+        if(cur_line >= lineCounter(filepath)) {
+            cur_line = 0;
+            return null; //Add error box + master list for error codes (Go through all exceptions)
         }
-        cur_line++;
+
+        for(int i = cur_line; i < lineCounter(filepath); i++) {
+            line = readLine(filepath, cur_line);
+            if(line.charAt(0) == '#') {
+                cur_line = i + 1;
+                continue;
+            }
+            line = readLine(filepath, i);
+            cur_line = i + 1;
+            break;
+        }
         return line;
     }
 
     /**
      * Writes to the next open line of a file
      * @param filepath the save file to write to
-     * @param toWrite the info to write
+     * @param data the info to write
      */
-     public void write(String filepath, String toWrite) {
+     public void write(String filepath, String data) {
         File saveFile = new File(filepath);
         try (BufferedWriter bWriter = new BufferedWriter(new FileWriter(saveFile, true))) {
-            bWriter.write(toWrite + "\n");
+            bWriter.write(data + "\n");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -92,12 +95,12 @@ public class FileHandler {
     /**
      * Writes a comment to the next open line of a file
      * @param filepath the save file to write to
-     * @param message the comment to write
+     * @param comment the comment to write
      */
-     public void comment(String filepath, String message) {
+     public void comment(String filepath, String comment) {
         File saveFile = new File(filepath);
         try (BufferedWriter bWriter = new BufferedWriter(new FileWriter(saveFile, true))) {
-            bWriter.write("# " + message + "\n");
+            bWriter.write("# " + comment + "\n");
         } catch (IOException e) {
             e.printStackTrace();
         }
