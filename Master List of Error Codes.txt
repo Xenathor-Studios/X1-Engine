@@ -1,0 +1,32 @@
+This file contains all error codes associated with the X1 Engine. Along with each code, you will see the error message
+that gets printed in a message box to the user and a detailed interpretation of the message, helping to troubleshoot and
+solve the problem. There is no particular order to the codes; I'm writing them here as they're created. The parameter of
+System.exit() corresponds to the code. I'm starting the count at 2 because 0 is Clean Exit, and 1 is General Unclean
+Exit.
+
+These errors are primarily for programmers developing with the X1 Engine. Ideally, players should never receive these
+error messages.
+
+-Maxwell Battles
+
+************************************************************************************************************************
+
+#       Message                                                Description
+2       Tick took too long: Tick optimization       One tick, or update cycle, took longer than the 16.666ms allotted
+        required. Error code 2.                     for each game loop iteration. That means the game is running slower
+                                                    than 60FPS. Because the game runs on a fixed cycle time, the game
+                                                    thread sleeps, or waits, the difference between how fast update()
+                                                    and render() ran and 16.666ms. Threads cannot sleep for a negative
+                                                    amount of time, so the game crashes. Presently, the only solution is
+                                                    to figure out why update() and/or [most likely] render() took more
+                                                    than 16.666ms to run, and optimize their code to run faster. We plan
+                                                    on adding a component to the game loop that cuts down on the
+                                                    rendering time without changing the update cycle time automatically
+                                                    when it thinks it will sleep the thread for negative time.
+3       Line out of bounds: No more data left to    The line of the file the game tried to access doesn't exist as its
+        read in file. Error code 3.                 line number is larger than the number of lines in the file. This can
+                                                    occur when you have at least one more getNextDataLine() call to a
+                                                    specific file than there is data in the file. Make sure this isn't
+                                                    the case. This can also occur if you're loading data into an array
+                                                    and the loop runs for too many iterations. Generally, this error is
+                                                    due to a programming fault rather than an engine bug.

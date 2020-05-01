@@ -55,8 +55,8 @@ public class Game implements Runnable {
                     exitFrame.pack();
                     exitFrame.setLocationRelativeTo(null);
                     exitFrame.setVisible(true);
-                    JOptionPane.showMessageDialog(exitFrame, "Tick took too long. Tick optimization required.", "Fatal Error", JOptionPane.ERROR_MESSAGE);
-                    System.exit(1);
+                    JOptionPane.showMessageDialog(exitFrame, "Tick took too long: Tick optimization required. Error code 2.", "Fatal Error", JOptionPane.ERROR_MESSAGE);
+                    System.exit(2);
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();

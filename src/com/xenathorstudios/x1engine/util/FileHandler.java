@@ -1,5 +1,6 @@
 package com.xenathorstudios.x1engine.util;
 
+import javax.swing.*;
 import java.io.*;
 
 /**
@@ -62,7 +63,12 @@ public class FileHandler {
 
         if(cur_line >= lineCounter(filepath)) {
             cur_line = 0;
-            return null; //Add error box + master list for error codes (Go through all exceptions)
+            JFrame exitFrame = new JFrame();
+            exitFrame.pack();
+            exitFrame.setLocationRelativeTo(null);
+            exitFrame.setVisible(true);
+            JOptionPane.showMessageDialog(exitFrame, "Line out of bounds: No more data left to read in file. Error code 3.", "Fatal Error", JOptionPane.ERROR_MESSAGE);
+            System.exit(3);
         }
 
         for(int i = cur_line; i < lineCounter(filepath); i++) {
