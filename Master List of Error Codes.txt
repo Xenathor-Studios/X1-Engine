@@ -11,7 +11,7 @@ error messages.
 
 ************************************************************************************************************************
 
-#       Message                                                Description
+#       Message                                     Description
 2       Tick took too long: Tick optimization       One tick, or update cycle, took longer than the 16.666ms allotted
         required. Error code 2.                     for each game loop iteration. That means the game is running slower
                                                     than 60FPS. Because the game runs on a fixed cycle time, the game
