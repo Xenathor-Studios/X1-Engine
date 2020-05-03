@@ -3,7 +3,6 @@ package com.xenathorstudios.x1engine;
 import com.xenathorstudios.x1engine.util.FileHandler;
 import com.xenathorstudios.x1engine.util.ThreadPool;
 import com.xenathorstudios.x1engine.util.event.Queue;
-
 import java.io.IOException;
 
 /**
@@ -14,7 +13,6 @@ import java.io.IOException;
 public class Launcher {
 
     private static final String CFG_PATH = "./x1engine.cfg";
-
     private static FileHandler fileHandler = new FileHandler();
     private static String title;
     private static int max_threads;
