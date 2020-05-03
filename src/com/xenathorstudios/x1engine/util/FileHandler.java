@@ -73,7 +73,7 @@ public class FileHandler {
 
         for(int i = cur_line; i < lineCounter(filepath); i++) {
             line = readLine(filepath, cur_line);
-            if(line.charAt(0) == '#') {
+            if(line.charAt(0) == '#' || line.equals("//")) {
                 cur_line = i + 1;
                 continue;
             }
@@ -99,14 +99,28 @@ public class FileHandler {
     }
 
     /**
-     * Writes a comment to the next open line of a file
+     * Writes a comment to the next open line of a file using # to denote a comment
      * @param filepath the save file to write to
      * @param comment the comment to write
      */
-     public void comment(String filepath, String comment) {
+     public void commentPound(String filepath, String comment) {
         File saveFile = new File(filepath);
         try (BufferedWriter bWriter = new BufferedWriter(new FileWriter(saveFile, true))) {
             bWriter.write("# " + comment + "\n");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Writes a comment to the next open line of a file using // to denote a comment
+     * @param filepath the save file to write to
+     * @param comment the comment to write
+     */
+    public void commentDoubleSlash(String filepath, String comment) {
+        File saveFile = new File(filepath);
+        try (BufferedWriter bWriter = new BufferedWriter(new FileWriter(saveFile, true))) {
+            bWriter.write("// " + comment + "\n");
         } catch (IOException e) {
             e.printStackTrace();
         }
