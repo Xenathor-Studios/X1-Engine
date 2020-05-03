@@ -2,7 +2,7 @@ package com.xenathorstudios.x1engine;
 
 import com.xenathorstudios.x1engine.util.FileHandler;
 import com.xenathorstudios.x1engine.util.ThreadPool;
-import com.xenathorstudios.x1engine.util.event.EventHandler;
+import com.xenathorstudios.x1engine.util.event.Queue;
 
 import java.io.IOException;
 
@@ -30,13 +30,13 @@ public class Launcher {
 
         //Add thread instances here
         Game game = new Game(title); //Primary thread, takes care of game objects, AI, physics, and gameplay
-        EventHandler eventHandler = new EventHandler(); //Secondary thread, takes care of events (commands, messages)
+        Queue queue = new Queue(); //Secondary thread, takes care of events (commands, messages)
         //Planned thread instances: Media Player, Render
 
         ThreadPool pool = new ThreadPool(max_threads);
         //Run threads here
         pool.runTask(game);
-        pool.runTask(eventHandler);
+        pool.runTask(queue);
 
         pool.join();
     }

@@ -28,7 +28,7 @@ class EventType {
     }
 
     String getType() {
-        return this.type;
+        return type;
     }
 
     void setType(String type) {
@@ -36,7 +36,7 @@ class EventType {
     }
 
     int getMaxEventArgs() {
-        return this.maxEventArgs;
+        return maxEventArgs;
     }
 
     void setMaxEventArgs(int maxEventArgs) {

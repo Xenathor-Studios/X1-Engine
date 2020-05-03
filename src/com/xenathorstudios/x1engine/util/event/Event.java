@@ -39,7 +39,7 @@ public class Event {
         }
 
         String getKey() {
-            return this.key;
+            return key;
         }
 
         void setKey(String key) {
@@ -47,7 +47,7 @@ public class Event {
         }
 
         Object getData() {
-            return this.data;
+            return data;
         }
 
         void setData(Object data) {
@@ -86,7 +86,7 @@ public class Event {
      * @param data the data of the corresponding key
      */
     public void addArgument(String key, Object data) {
-        for(EventArg eArg : this.eArgs) {
+        for(EventArg eArg : eArgs) {
             if (eArg.getKey().equals(NULL_KEY)) {
                 eArg.setKey(key);
                 eArg.setData(data);
@@ -101,7 +101,7 @@ public class Event {
      * @param data the data of the corresponding key
      */
     public void removeArgument(String key, Object data) {
-        for(EventArg eArg : this.eArgs) {
+        for(EventArg eArg : eArgs) {
             if (eArg.getKey().equals(key) && eArg.getData().equals(data)) {
                 eArg.setKey(NULL_KEY);
                 eArg.setData(null);
@@ -111,7 +111,7 @@ public class Event {
     }
 
     public EventArg getArgument(int index) {
-        return this.eArgs[index];
+        return eArgs[index];
     }
 
     public void setArgument(EventArg argument, int index) {
@@ -119,7 +119,7 @@ public class Event {
     }
 
     public String getArgumentKey(int index) {
-        return this.eArgs[index].getKey();
+        return eArgs[index].getKey();
     }
 
     public void setArgumentKey(String key, int index) {
@@ -127,7 +127,7 @@ public class Event {
     }
 
     public Object getArgumentData(int index) {
-        return this.eArgs[index].getData();
+        return eArgs[index].getData();
     }
 
     public void setArgumentData(Object data, int index) {
@@ -135,22 +135,22 @@ public class Event {
     }
 
     public EventArg[] getAllArguments() {
-        return this.eArgs;
+        return eArgs;
     }
 
     public void setAllArguments(EventArg[] arguments) {
-        if(arguments.length > this.eArgs.length) {
+        if(arguments.length > eArgs.length) {
             JFrame exitFrame = new JFrame();
             exitFrame.pack();
             exitFrame.setLocationRelativeTo(null);
             exitFrame.setVisible(true);
             JOptionPane.showMessageDialog(exitFrame, "Passed array longer than called array. Error code 4.", "Fatal Error", JOptionPane.ERROR_MESSAGE);
             System.exit(4);
-        } else if(arguments.length < this.eArgs.length) {
+        } else if(arguments.length < eArgs.length) {
             for(int i = 0; i < arguments.length; i++) {
                 this.eArgs[i] = arguments[i];
             }
-            for(int i = arguments.length; i < this.eArgs.length; i++) {
+            for(int i = arguments.length; i < eArgs.length; i++) {
                 this.eArgs[i] = new EventArg();
             }
         } else {
@@ -161,26 +161,26 @@ public class Event {
     }
 
     public String[] getAllArgumentKeys() {
-        String[] s = new String[this.eArgs.length];
-        for(int i = 0; i < this.eArgs.length; i++) {
-            s[i] = this.eArgs[i].getKey();
+        String[] s = new String[eArgs.length];
+        for(int i = 0; i < eArgs.length; i++) {
+            s[i] = eArgs[i].getKey();
         }
         return s;
     }
 
     public void setAllArgumentKeys(String[] arguments) {
-        if(arguments.length > this.eArgs.length) {
+        if(arguments.length > eArgs.length) {
             JFrame exitFrame = new JFrame();
             exitFrame.pack();
             exitFrame.setLocationRelativeTo(null);
             exitFrame.setVisible(true);
             JOptionPane.showMessageDialog(exitFrame, "Passed array longer than called array. Error code 4.", "Fatal Error", JOptionPane.ERROR_MESSAGE);
             System.exit(4);
-        } else if(arguments.length < this.eArgs.length) {
+        } else if(arguments.length < eArgs.length) {
             for(int i = 0; i < arguments.length; i++) {
                 this.eArgs[i].setKey(arguments[i]);
             }
-            for(int i = arguments.length; i < this.eArgs.length; i++) {
+            for(int i = arguments.length; i < eArgs.length; i++) {
                 this.eArgs[i].setKey(NULL_KEY);
             }
         } else {
@@ -191,26 +191,26 @@ public class Event {
     }
 
     public Object[] getAllArgumentData() {
-        Object[] o = new Object[this.eArgs.length];
-        for(int i = 0; i < this.eArgs.length; i++) {
-            o[i] = this.eArgs[i].getData();
+        Object[] o = new Object[eArgs.length];
+        for(int i = 0; i < eArgs.length; i++) {
+            o[i] = eArgs[i].getData();
         }
         return o;
     }
 
     public void setAllArgumentData(Object[] arguments) {
-        if(arguments.length > this.eArgs.length) {
+        if(arguments.length > eArgs.length) {
             JFrame exitFrame = new JFrame();
             exitFrame.pack();
             exitFrame.setLocationRelativeTo(null);
             exitFrame.setVisible(true);
             JOptionPane.showMessageDialog(exitFrame, "Passed array longer than called array. Error code 4.", "Fatal Error", JOptionPane.ERROR_MESSAGE);
             System.exit(4);
-        } else if(arguments.length < this.eArgs.length) {
+        } else if(arguments.length < eArgs.length) {
             for(int i = 0; i < arguments.length; i++) {
                 this.eArgs[i].setData(arguments[i]);
             }
-            for(int i = arguments.length; i < this.eArgs.length; i++) {
+            for(int i = arguments.length; i < eArgs.length; i++) {
                 this.eArgs[i].setData(null);
             }
         } else {
@@ -221,7 +221,7 @@ public class Event {
     }
 
     public String getEventType() {
-        return this.eType.getType();
+        return eType.getType();
     }
 
     public void setEventType(String type) {
