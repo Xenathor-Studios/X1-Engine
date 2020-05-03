@@ -15,7 +15,7 @@ public class ThreadPool extends ThreadGroup {
     private List<Runnable> taskQueue;
 
     /**
-     * Constructs a thread pool
+     * Constructs a Thread Pool
      * @param numThreads the number of threads in the pool
      */
     public ThreadPool(int numThreads) {
