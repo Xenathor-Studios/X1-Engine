@@ -30,8 +30,8 @@ error messages.
                                                     the case. This can also occur if you're loading data into an array
                                                     and the loop runs for too many iterations. Generally, this error is
                                                     due to a programming fault rather than an engine bug.
-4       Passed Event Argument array longer than     The array that was passed into setAllArguments was longer than the
-        called Event Argument array. Error code 4.  array that called setAllArguments. Make sure they are either the
+4       Passed array longer than called array.      The array that was passed into setAllArguments was longer than the
+        Error code 4.                               array that called setAllArguments. Make sure they are either the
                                                     same length or that the array passed into setAllArguments is shorter
                                                     than the array calling setAllArguments. If you are sure that you
                                                     only want to copy over enough data to fill the calling array, but
