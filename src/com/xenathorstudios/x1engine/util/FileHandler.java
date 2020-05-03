@@ -73,7 +73,7 @@ public class FileHandler {
 
         for(int i = cur_line; i < lineCounter(filepath); i++) {
             line = readLine(filepath, cur_line);
-            if(line.charAt(0) == '#' || line.equals("//")) {
+            if(line.charAt(0) == '#' || ((line.charAt(0) == '/') && (line.charAt(1) == '/'))){
                 cur_line = i + 1;
                 continue;
             }
