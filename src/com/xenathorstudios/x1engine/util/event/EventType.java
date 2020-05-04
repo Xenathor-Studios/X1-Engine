@@ -5,7 +5,10 @@ package com.xenathorstudios.x1engine.util.event;
  * @author Maxwell "M_Dragon" Battles
  * 
  */
-class EventType {
+enum EventType {
+
+    //Construct all your Event Types here, with the format: <EVENT NAME>_EVENT(<construction parameters>),
+    NULL_EVENT();
 
     private String type;
     private int maxEventArgs;
@@ -21,6 +24,7 @@ class EventType {
     /**
      * Constructs an Event Type
      * @param type the type of the event
+     * @param maxEventArgs the maximum number of Event Arguments the type has
      */
     EventType(String type, int maxEventArgs) {
         this.type = type;
@@ -42,7 +46,4 @@ class EventType {
     void setMaxEventArgs(int maxEventArgs) {
         this.maxEventArgs = maxEventArgs;
     }
-
-    //Construct all your Event Types here
-    public static EventType nullEvent = new EventType();
 }

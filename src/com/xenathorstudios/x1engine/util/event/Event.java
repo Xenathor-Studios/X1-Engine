@@ -59,7 +59,7 @@ public class Event {
      * Empty Constructor
      */
     public Event() {
-        this.eType = EventType.nullEvent;
+        this.eType = EventType.NULL_EVENT;
         this.eArgs = new EventArg[eType.getMaxEventArgs()];
         for(EventArg eArg : eArgs) {
             eArg.setKey(NULL_KEY);
@@ -220,11 +220,19 @@ public class Event {
         }
     }
 
-    public String getEventType() {
+    public String getEventTypeString() {
         return eType.getType();
     }
 
-    public void setEventType(String type) {
+    public void setEventTypeString(String type) {
         this.eType.setType(type);
+    }
+
+    public EventType getEventType() {
+        return eType;
+    }
+
+    public void setEventType(EventType type) {
+        this.eType = type;
     }
 }

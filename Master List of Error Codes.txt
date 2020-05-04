@@ -23,6 +23,7 @@ error messages.
                                                     on adding a component to the game loop that cuts down on the
                                                     rendering time without changing the update cycle time automatically
                                                     when it thinks it will sleep the thread for negative time.
+                                                    This also applies to other threads.
 3       Line out of bounds: No more data left to    The line of the file the game tried to access doesn't exist as its
         read in file. Error code 3.                 line number is larger than the number of lines in the file. This can
                                                     occur when you have at least one more getNextDataLine() call to a
@@ -38,3 +39,6 @@ error messages.
                                                     not copy over all the data in the passed array, remove this block
                                                     { if(arguments.length > this.eArgs.length) } from setAllArguments.
                                                     This code also applies to setAllArgumentKeys and setAllArgumentData.
+5       Event Type not recognized. Error code 5.    The Event Type of the current Event being handled by the Queue was
+                                                    not recognized. Make sure that the Event Type was declared in the
+                                                    Event Type class.
