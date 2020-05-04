@@ -28,7 +28,7 @@ public class Launcher {
 
         //Add thread instances here
         Game game = new Game(title); //Primary thread, takes care of game objects, AI, physics, and gameplay
-        Queue queue = new Queue(); //Secondary thread, takes care of events (commands, messages)
+        Queue queue = new Queue(); //Secondary thread, handles events (commands, messages)
         //Planned thread instances: Media Player, Render
 
         ThreadPool pool = new ThreadPool(max_threads);
