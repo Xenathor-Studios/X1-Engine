@@ -19,22 +19,22 @@ public class Game implements Runnable {
     private final double MS_PER_FRAME = 16.666666; //60FPS
     private boolean running = false;
 
-    public Game(String title) {
+    Game(String title) {
         this.TITLE = title;
     }
 
-    public void init() {
+    private void init() {
         //Anything that needs to be initialized prior to the game starting goes in here
         running = true;
     }
 
-    public void update() {
+    private void update() {
         //Processes UI
         //Does physics sim
         //Updates game entities/objects one tick
     }
 
-    public void render() {
+    private void render() {
         //Renders, obviously
     }
 
@@ -64,5 +64,4 @@ public class Game implements Runnable {
             }
         }
     }
-
 }

@@ -23,6 +23,7 @@ error messages.
                                                     on adding a component to the game loop that cuts down on the
                                                     rendering time without changing the update cycle time automatically
                                                     when it thinks it will sleep the thread for negative time.
+                                                    This also applies to other threads.
 3       Line out of bounds: No more data left to    The line of the file the game tried to access doesn't exist as its
         read in file. Error code 3.                 line number is larger than the number of lines in the file. This can
                                                     occur when you have at least one more getNextDataLine() call to a
@@ -30,3 +31,14 @@ error messages.
                                                     the case. This can also occur if you're loading data into an array
                                                     and the loop runs for too many iterations. Generally, this error is
                                                     due to a programming fault rather than an engine bug.
+4       Passed array longer than called array.      The array that was passed into setAllArguments was longer than the
+        Error code 4.                               array that called setAllArguments. Make sure they are either the
+                                                    same length or that the array passed into setAllArguments is shorter
+                                                    than the array calling setAllArguments. If you are sure that you
+                                                    only want to copy over enough data to fill the calling array, but
+                                                    not copy over all the data in the passed array, remove this block
+                                                    { if(arguments.length > this.eArgs.length) } from setAllArguments.
+                                                    This code also applies to setAllArgumentKeys and setAllArgumentData.
+5       Event Type not recognized. Error code 5.    The Event Type of the current Event being handled by the Queue was
+                                                    not recognized. Make sure that the Event Type was declared in the
+                                                    Event Type class.
