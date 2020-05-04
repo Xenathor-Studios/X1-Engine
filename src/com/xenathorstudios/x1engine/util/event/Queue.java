@@ -8,6 +8,7 @@ import com.xenathorstudios.x1engine.util.event.EventType;
  * Project: X1 Engine
  * @author Maxwell "M_Dragon" Battles
  * Handles all Events at the global level
+ * TODO: See handleQueue() comment
  */
 public class Queue implements Runnable {
 
@@ -60,6 +61,10 @@ public class Queue implements Runnable {
 
     /**
      * Handles each Event in the Queue until there are no more Events or one tick has passed
+     * There could be game loop sync problems with this thread if elapsed is greater than MS_PER_FRAME. A quick solution
+     * would be to set elapsed as a static value so that we can predict how many Events will be handled in one tick, but
+     * this solution requires that we are positive that handling any Event will not take longer than elapsed. Look into
+     * solutions that allow elapsed to be dynamic.
      */
     private void handleQueue() {
         long lastTime;

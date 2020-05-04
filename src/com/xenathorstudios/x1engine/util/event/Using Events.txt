@@ -68,6 +68,7 @@ e.addArgument("event 1", 13);
 Note that since the data is a general object, the
 Event can store anything, even other Events!
 
+
 iv. When to Use Events
 
 An Event should be constructed and handled whenever
