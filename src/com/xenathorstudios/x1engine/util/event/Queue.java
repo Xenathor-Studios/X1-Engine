@@ -65,7 +65,6 @@ public class Queue implements Runnable {
         long lastTime;
         long currentTime;
         long elapsed = 0;
-        int i = 0;
         while(!isQueueEmpty() || (elapsed >= (long) MS_PER_FRAME)) {
             lastTime = System.nanoTime();
             /*
@@ -76,9 +75,18 @@ public class Queue implements Runnable {
                 <System Name>EventHandler.handle(eventQueue.get(i));
                 break;
              */
-            switch(eventQueue.get(i).getEventType()) {
+            switch(eventQueue.get(0).getEventType()) {
                 //Add cases here
+                /*
+                Example case:
+
+                case EVENT:
+                    SystemEventHandler.handle(eventQueue.get(0));
+                    consume();
+                    break;
+                 */
                 case NULL_EVENT:
+                    consume();
                     break;
                 default:
                     JFrame exitFrame = new JFrame();
@@ -90,7 +98,26 @@ public class Queue implements Runnable {
             }
             currentTime = System.nanoTime();
             elapsed += currentTime - lastTime;
-            i++;
         }
+    }
+
+    /**
+     * Adds an Event to the Queue
+     * @param e the Event to add
+     */
+    private void add(Event e) {
+        eventQueue.add(e);
+    }
+
+    /**
+     * Consumes, or removes, the Event at the top of the Queue
+     * Every Event in the Queue then moves up in line
+     */
+    private void consume() {
+        eventQueue.remove(0);
+    }
+
+    public ArrayList<Event> getEventQueue() {
+        return eventQueue;
     }
 }

@@ -1,0 +1,132 @@
+This file explains how to use Events in the X1 Engine.
+
+Contents:
+A. What is an Event?
+	i.	Event Types
+	ii.	Event Arguments
+	iii.	Event Declaration
+	iv.	When to Use Events
+B. The Event Queue
+	i.	Copying Queues
+C. Example
+
+=====================================================
+
+A. What is an Event?
+
+An Event is an object that has both a type and some
+number of arguments. The type tells us what system(s)
+may need to access the Event. The argument(s) of the
+Event tell us what data the Event contains.
+
+An Event can also be called a Command or Message.
+
+
+i. Event Types
+
+Every Event has a type, which is an enumerated object
+with two important points of information. The first
+is a String called 'type', whose value tells us what
+Event Type we're dealing with and helps differentiate
+between Event Types. The second is an integer called
+'maxEventArgs', whose value tells us the maximum
+number of arguments an Event of this specific type
+can hold.
+
+Event Types should be declared at the top of the
+EventType enum formatted like:
+<EVENT NAME>_EVENT("<name>", #),
+The capitalization of each part is significant. The
+angled brackets are used to indicate 'Insert Here.'
+Note that the declaration ends with a comma instead
+of a semicolon. Because an Event Type is enumerated,
+the declaration follows enum declaration protocol.
+
+
+ii. Event Arguments
+
+Every Event has arguments, which are encoded as key-
+value pairs. The key is a String that acts the
+identifier of the value. The value is the data that
+the argument holds; it is represented as a basic
+object. The Event Arguments are stored in a 1D array
+within the Event object. The size of the array is
+dependent upon the type of the Event.
+
+
+iii. Event Declaration
+
+When an Event is created by an engine or game system,
+it should be contstructed with the following format:
+Event <name> = new Event(<EVENT_TYPE>);
+Then, data should be stored in the Event as follows
+(Let's say we have an Event called e of type
+SOME_EVENT, where SOME_EVENT has type "some" and
+maxEventArgs '4', and we want the Event data to be
+the integer 13):
+e.addArgument("event 1", 13);
+Note that since the data is a general object, the
+Event can store anything, even other Events!
+
+iv. When to Use Events
+
+An Event should be constructed and handled whenever
+the programmer wants one game subsystem to alert the
+others that something important has happened. For
+example, let's say the player shoots an enemy target.
+What should happen? At the visual level, the player
+would expect the enemy to animate a reaction. This is
+when an Event should fire. The physics engine would
+detect the player's weapon's projectile colliding
+with the enemy's shape. Then, it would construct an
+Event that encodes the fact that the collision
+occurred. Then it loads the Event into the master
+Event Queue. The master EventQueue would handle the
+Event and send it off to the rendering engine which
+may activate the appropriate 'enemy got shot'
+animation.
+
+
+
+B. The Event Queue
+
+After an Event is constructed and its arguments
+added, it needs to be added to the Event Queue. The
+Event Queue is a continually running thread like the
+game loop. They are added as follows (Let e be the
+recently constructed Event):
+queue.add(e);
+Note that queue is the master Event Queue constructed
+in Launcher.java.
+
+Each tick, the master Event Queue will attempt to
+handle as many Events as it can. When an Event is
+handled, it gets consumed, or removed from the master
+Event Queue.
+
+
+i. Copying Queues
+
+To copy a Queue, simply construct a new Queue with
+construction paramter oldQueue.getEventQueue().
+Queue newQueue = new Queue(oldQueue.getEventQueue());
+
+
+
+C. Example
+
+Below is an example implementation of an Event and a
+Queue. Let's say that we want an Event to be created
+and handled when the player completes his objective.
+Let's also say that an OBJECTIVE_EVENT has type
+"objective" and maxEventArgs 1. Let levelObjective be
+the Objective object we want the Event to store.
+
+Queue q = new Queue();
+Event e = new Event(OBJECTIVE_EVENT);
+e.addArgument("objective cleared", levelObjective);
+q.add(e);
+
+The Event e will be handled by an EventHandler
+subclass dictated by the switch block in
+Queue.handleQueue().

@@ -5,9 +5,9 @@ package com.xenathorstudios.x1engine.util.event;
  * @author Maxwell "M_Dragon" Battles
  * 
  */
-enum EventType {
+public enum EventType {
 
-    //Construct all your Event Types here, with the format: <EVENT NAME>_EVENT(<construction parameters>),
+    //Construct all your Event Types here, with the format: <EVENT NAME>_EVENT("<name>", #),
     NULL_EVENT();
 
     private String type;
