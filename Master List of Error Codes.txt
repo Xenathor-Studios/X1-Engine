@@ -7,6 +7,8 @@ Exit.
 These errors are primarily for programmers developing with the X1 Engine. Ideally, players should never receive these
 error messages.
 
+Any error code with the tag [OBS] is obsolete.
+
 -Maxwell Battles
 
 ************************************************************************************************************************
@@ -31,7 +33,7 @@ error messages.
                                                     the case. This can also occur if you're loading data into an array
                                                     and the loop runs for too many iterations. Generally, this error is
                                                     due to a programming fault rather than an engine bug.
-4       Passed array longer than called array.      The array that was passed into setAllArguments was longer than the
+[OBS]4  Passed array longer than called array.      The array that was passed into setAllArguments was longer than the
         Error code 4.                               array that called setAllArguments. Make sure they are either the
                                                     same length or that the array passed into setAllArguments is shorter
                                                     than the array calling setAllArguments. If you are sure that you

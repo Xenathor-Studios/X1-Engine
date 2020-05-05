@@ -25,17 +25,14 @@ An Event can also be called a Command or Message.
 i. Event Types
 
 Every Event has a type, which is an enumerated object
-with two important points of information. The first
-is a String called 'type', whose value tells us what
-Event Type we're dealing with and helps differentiate
-between Event Types. The second is an integer called
-'maxEventArgs', whose value tells us the maximum
-number of arguments an Event of this specific type
-can hold.
+with one important point of information. That is a
+String called 'type', whose value tells us what Event
+Type we're dealing with and helps differentiate
+between Events.
 
 Event Types should be declared at the top of the
 EventType enum formatted like:
-<EVENT NAME>_EVENT("<name>", #),
+<EVENT NAME>_EVENT("<name>"),
 The capitalization of each part is significant. The
 angled brackets are used to indicate 'Insert Here.'
 Note that the declaration ends with a comma instead
@@ -46,12 +43,10 @@ the declaration follows enum declaration protocol.
 ii. Event Arguments
 
 Every Event has arguments, which are encoded as key-
-value pairs. The key is a String that acts the
-identifier of the value. The value is the data that
-the argument holds; it is represented as a basic
-object. The Event Arguments are stored in a 1D array
-within the Event object. The size of the array is
-dependent upon the type of the Event.
+value pairs in a general Event Argument Hash Map. The
+key is a String that acts the identifier of the value.
+The value is the data that the argument holds; it is
+represented as a basic Object.
 
 
 iii. Event Declaration
@@ -62,8 +57,7 @@ Event <name> = new Event(<EVENT_TYPE>);
 Then, data should be stored in the Event as follows
 (Let's say we have an Event called e of type
 SOME_EVENT, where SOME_EVENT has type "some" and
-maxEventArgs '4', and we want the Event data to be
-the integer 13):
+we want the Event data to be the integer 13):
 e.addArgument("event 1", 13);
 Note that since the data is a general object, the
 Event can store anything, even other Events!
@@ -82,7 +76,7 @@ detect the player's weapon's projectile colliding
 with the enemy's shape. Then, it would construct an
 Event that encodes the fact that the collision
 occurred. Then it loads the Event into the master
-Event Queue. The master EventQueue would handle the
+Event Queue. The master Event Queue would handle the
 Event and send it off to the rendering engine which
 may activate the appropriate 'enemy got shot'
 animation.
