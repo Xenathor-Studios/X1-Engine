@@ -1,7 +1,7 @@
 # X1-Engine
 The X1 Engine is a 2D game engine.
 
-Copyright 2020 Xenathor Studios
+Copyright 2022 Xenathor Studios
 
 
 ### TODO:
